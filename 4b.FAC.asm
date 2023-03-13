@@ -32,8 +32,8 @@ MAIN PROC
     MOV AL, 01H
     
     LOOP:
-        MUL CL
-    LOOP LOOP
+        MUL CL  ;CL 1ST STORE INPUT
+    LOOP LOOP  ;3->2->1 AND IF 0 THEN BREAK
     
     MOV n, AL
     

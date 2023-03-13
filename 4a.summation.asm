@@ -25,13 +25,13 @@ MAIN PROC
     SUB AL,'0'
     MOV BL,AL
     INC BL
-    MUL BL
+    MUL BL  ;AL=AL*(AL+1)
     
     
     MOV BL,02H
-    DIV BL 
+    DIV BL    ;AL=AL/2
     ADD AL,'0'
-    MOV N,AL
+    MOV N,AL    ;COPY AL INTO N
     
     
     ; output

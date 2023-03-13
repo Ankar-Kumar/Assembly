@@ -1,4 +1,6 @@
-;sorting   for int type and string 
+;sorting   for int type and string
+
+;AAAKKMNRRU 
 
 .MODEL SMALL
 .STACK 100H
@@ -36,7 +38,7 @@ MAIN PROC
        
         ;sorting segment increasing order (Using bubble sort)
         MOV n,SI;
-        SUB n,1
+        DEC N   ;;;;;;
         
         MOV CX,n
         OUTTOP:
@@ -57,7 +59,7 @@ MAIN PROC
            
                 INC DI
                 INC SI
-                JMP TOP:
+                JMP TOP
             ENDTOP:        
         LOOP OUTTOP:  
           
@@ -72,7 +74,7 @@ MAIN PROC
      MOV DI,0
      
      OUTPUT:
-        MOV DL,str[DI]
+        
         CMP DI,n
         JZ ENDOUTPUT
         

@@ -7,7 +7,7 @@
 .DATA
 
 VAR DB 'ANKAR kumar sah@20 2 5566$'
- vowelS DB 'AEIOUaeiou$'
+vowelS DB 'AEIOUaeiou$'
     
     vc DB '0'
     cc DB '0'
@@ -37,8 +37,8 @@ MAIN PROC
         
         ALPHABET:
             MOV SI,0
-            MOV CX,0AH
-           TOP:          
+            MOV CX,0AH  ;CX=10
+           TOP:      ;CHECK ALL VOWELS CHAR WITH ONE I/P CHAR    
            MOV BL,VOWELS[SI]
            CMP VAR[DI],BL
            JZ VOWEL

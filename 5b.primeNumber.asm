@@ -37,20 +37,17 @@ MAIN PROC
     MOV CL, AL
     DEC CL
     
-    LOOP:
-        MOV AH, 0H
-        
-        DIV CL
-        
+    LOOP2:      ; NUMBER KE N,N-1,N-2....2 PRJNTO TO DIV KRCHI
+        MOV AH, 0H         
+        DIV CL             
         MOV AL, BL
         
-        CMP AH, 0H  ;REMAINDER
+        CMP AH, 0H      ;REMAINDER
         JE NOT_PRIME
         
-        CMP CL, 02H
+        CMP CL, 02H     ;2 HOLE BREAK TO PRIME
         JE PRIME 
-        DEC CX
-     JNZ LOOP  
+       LOOP LOOP2   ;;;DEC CL EVERY TIME 
     
     PRIME:
         CALL NEWLINE
