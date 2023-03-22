@@ -37,14 +37,14 @@ MAIN PROC
         
         ALPHABET:
             MOV SI,0
-            MOV CX,0AH  ;CX=10
+            MOV CX,0AH  ;CX=10 vowels
            TOP:      ;CHECK ALL VOWELS CHAR WITH ONE I/P CHAR    
            MOV BL,VOWELS[SI]
            CMP VAR[DI],BL
            JZ VOWEL
            INC SI
            LOOP TOP
-           INC CC  
+           INC CC  ;constant inc  
            INC DI
            JMP ITERATE
            

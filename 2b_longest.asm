@@ -4,7 +4,7 @@
    CNT Dw 20
    N DW 20
    IND DW   ?
-   MSG DB 'abcdabcdefxyzbcdeabijklm$'
+   MSG DB 'abcdabcdefgxyzbcdeabijklm$'
    str db 50
    T Dw ?
    mx dw ?
@@ -17,8 +17,23 @@ MAIN PROC
     MOV AX,@DATA
     MOV DS,AX
     
-      MOV SI,0  
-      MOV MX,'0'
+     ; MOV SI,0 
+;      MOV AH,01H
+;      SCAN:
+;        CMP AL,0DH
+;        JE END_SCAN
+;        MOV MSG[SI],AL
+;        INT 21H
+;        INC SI
+;        JMP SCAN
+;      
+;      END_SCAN: 
+;        MOV MSG[SI],'$'
+;        call newline
+;        
+        
+        MOV SI,0        
+        MOV MX,'0'
     OUTLOOP:   
         CMP MSG[SI],'$'
         JE store2
@@ -50,32 +65,39 @@ MAIN PROC
             
            
             MOV SI,IND  
-             mov t,si
+            mov t,si
             INC SI 
             JMP OUTLOOP
     ;LOOP OUTLOOP
     store2:
-        mov si,t  
-       ; add si,'0'
-        mov cx,0
-    mov ah,02
-    print: 
-       cmp cx,mx
-       je exit   
-        
-       mov DX,MX
+        mov si,t
+        ;add si,'0' 
+       
+        mov ah,02
+    print:        
+       mov dl,msg[si]
        int 21h
        inc si
-       inc cx
-       
+       DEC MX
+       cmp MX,'0'
+       je exit
        jmp PRINT
        
        
     EXIT:
        mov ah,4ch
        int 21h
-       
-  
+MAIN ENDP
+    
+ NEWLINE PROC
+    MOV DL, 0AH ; carriage return
+    MOV AH, 02H
+    INT 21H
+    MOV DL, 0DH ; newline feed   
+    INT 21H
+    RET
+ NEWLINE ENDP 
+
     
 
 END MAIN

@@ -1,4 +1,4 @@
-; String sorting using bubble sort
+
 
 .MODEL SMALL
 .STACK 100H
@@ -71,8 +71,7 @@ INPUT: ; input taking
         LEA DX, ERR
         MOV AH, 09H
         INT 21H 
-        MOV AH, 4CH
-        INT 21H
+        JMP DOS
       EXIT:
          LEA DX, outmsg1
          MOV AH, 09H
@@ -88,6 +87,8 @@ INPUT: ; input taking
          MOV AH,2
         MOV DL,MAX
         INT 21H 
+        JMP DOS
+     DOS:
         MOV AH, 4CH
         INT 21H
             

@@ -1,3 +1,7 @@
+
+
+
+
 ;sorting   for int type and string
 
 ;AAAKKMNRRU 
@@ -61,7 +65,7 @@ MAIN PROC
                 INC SI
                 JMP TOP
             ENDTOP:        
-        LOOP OUTTOP:  
+        LOOP OUTTOP  
           
      
      ;Printing segment

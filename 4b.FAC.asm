@@ -22,9 +22,9 @@ MAIN PROC
     MOV AH, 01H
     INT 21H
     
-    MOV n, 01H
-    CMP AL, '0'
-    JE OUTPUT
+    
+    CMP AL, '2'
+    JL OUTPUT
     
     SUB AL, '0'
     MOV CH, 0H

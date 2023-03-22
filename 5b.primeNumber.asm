@@ -45,7 +45,7 @@ MAIN PROC
         CMP AH, 0H      ;REMAINDER
         JE NOT_PRIME
         
-        CMP CL, 02H     ;2 HOLE BREAK TO PRIME
+        CMP CL, 2     ;2 HOLE BREAK TO PRIME
         JE PRIME 
        LOOP LOOP2   ;;;DEC CL EVERY TIME 
     
