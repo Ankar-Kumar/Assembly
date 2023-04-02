@@ -23,8 +23,8 @@ MAIN PROC
     INT 21H
     
     
-    CMP AL, '2'
-    JL OUTPUT
+   ; CMP AL, '2'
+   ; JL OUTPUT
     
     SUB AL, '0'
     MOV CH, 0H

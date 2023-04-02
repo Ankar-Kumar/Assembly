@@ -4,7 +4,7 @@
    CNT Dw 20
    N DW 20
    IND DW   ?
-   MSG DB 'abcdabcdefgxyzbcdeabijklm$'
+   MSG DB 'bbbbbbaaaaabbbbb$';'abcdabcdeafgkxyzbcdeabklm$'
    str db 50
    T Dw ?
    mx dw ?
@@ -33,21 +33,28 @@ MAIN PROC
 ;        
         
         MOV SI,0        
-        MOV MX,'0'
+        MOV MX,0
     OUTLOOP:   
         CMP MSG[SI],'$'
         JE store2
         MOV IND,SI
         MOV DI,SI 
         
-        MOV CNT,'1' 
+        MOV CNT,1 
         INLOOP: 
            CMP MSG[DI],'$'
            JE OUTLOOP
            INC DI             
            MOV BL,MSG[SI]
            CMP BL,MSG[DI]
-           JG SKIP 
+           JG SKIP
+           jmp matha
+           
+           matha:
+           mov al,msg[di]
+           sub al,bl
+           cmp al,1
+           jne skip  
            INC CNT 
            MOV SI,DI
            JMP INLOOP
@@ -56,8 +63,8 @@ MAIN PROC
              CMP CNT,Dx
              JG COUNT 
              ;MOV CNT,0 
-             MOV SI,IND
-             INC SI
+             MOV SI,di
+             
              JMP OUTLOOP
            COUNT: 
             MOV Dx,CNT
@@ -66,7 +73,7 @@ MAIN PROC
            
             MOV SI,IND  
             mov t,si
-            INC SI 
+            MOV SI,di
             JMP OUTLOOP
     ;LOOP OUTLOOP
     store2:
@@ -79,7 +86,7 @@ MAIN PROC
        int 21h
        inc si
        DEC MX
-       cmp MX,'0'
+       cmp MX,0
        je exit
        jmp PRINT
        

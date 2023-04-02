@@ -3,6 +3,7 @@
 
 .DATA 
     MX db ?
+    MN DB '9'
 .CODE
 
 
@@ -16,19 +17,32 @@ MAIN PROC
        INT 21H
        CMP AL,0DH
        JE END_SCAN
-      ; SUB AL,'0'        
+       
+       ;; FIND MAXIMUM;;
+           
        CMP AL,MX
        JG MAX
-       JMP SCAN
        
        MAX:
          MOV MX,AL
-         JMP SCAN 
+         JMP SCAN ;;
+         
+       ;;FIND MINIMUM ;;
+
+       ;CMP AL,MN
+;       JL MIN
+;       JMP SCAN 
+      
+;       MIN:        
+;         CMP AL,' '
+;         JE SCAN
+;         MOV MN,AL
+;         JMP SCAN ;;
     
     END_SCAN:
         CALL NEWLINE  
-       ; ADD MX,'0'
-        MOV DL,MX
+ 
+        MOV DL,MN
         MOV AH,02H
         INT 21H    
     

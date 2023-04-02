@@ -1,5 +1,6 @@
 
 
+
 .MODEL SMALL
 .STACK 100H
 
@@ -57,8 +58,8 @@ INPUT: ; input taking
         INC CNT
         MOV MAX,AL
     NEXT:
-        MOV STR[SI],AL
-        INC SI
+        ;MOV STR[SI],AL
+;        INC SI
         JMP INPUT
     ENDINPUT:
         CALL NEWLINE 

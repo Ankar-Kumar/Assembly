@@ -28,7 +28,8 @@ MAIN PROC
     
     
    ; SHR AL,1   ;PROC 2
-;    JC ODD
+;    JC ODD 
+    ;jmp even
     
     
     ;MOV BL,2   ;PROC 3

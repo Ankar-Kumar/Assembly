@@ -76,14 +76,14 @@ MAIN PROC
         CHECK:
           CMP VAR[DI],'a'
           JL OTHERS 
-          
+          jmp alphabet
         OTHERS:
         INC DI
         JMP ITERATE 
         
     
     PRINT:
-      MOV DL,DIG
+      MOV DL,vc
       MOV AH,02H
       INT 21H      
     

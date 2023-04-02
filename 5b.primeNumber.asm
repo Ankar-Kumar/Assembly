@@ -5,7 +5,7 @@
 
 .DATA
     inmsg DB "Enter a number: (0-9) $"
-    outmsg1 DB "Prime Number!$"
+    outmsg1 DB "Prime Number$"
     outmsg2 DB "Not Prime Number$"
     n DB ?
     
@@ -23,31 +23,33 @@ MAIN PROC
     MOV AH, 01H
     INT 21H
     
-    CMP AL, '0'
-    JE NOT_PRIME
+    SUB AL, '0'
+    MOV BL, AL 
+    ;dec al
+    MOV n, AL
+    DEC n
     
-    CMP AL, '1'
-    JE NOT_PRIME
+    CMP AL,1
+    JLE NOT_PRIME
     
-    CMP AL, '2'
+    CMP AL, 2
     JE PRIME
     
-    SUB AL, '0'
-    MOV BL, AL
-    MOV CL, AL
-    DEC CL
+    
     
     LOOP2:      ; NUMBER KE N,N-1,N-2....2 PRJNTO TO DIV KRCHI
         MOV AH, 0H         
-        DIV CL             
+        DIV n             
         MOV AL, BL
         
         CMP AH, 0H      ;REMAINDER
         JE NOT_PRIME
+         dec n
+        CMP n, 2     ;2 HOLE BREAK TO PRIME
+        JE PRIME
         
-        CMP CL, 2     ;2 HOLE BREAK TO PRIME
-        JE PRIME 
-       LOOP LOOP2   ;;;DEC CL EVERY TIME 
+         
+      jmp LOOP2   ;;;DEC CL EVERY TIME 
     
     PRIME:
         CALL NEWLINE
