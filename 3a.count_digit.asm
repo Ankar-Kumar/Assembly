@@ -6,11 +6,11 @@
 
 .DATA
 
-VAR DB 'ANKAR kumar sah@20 2 5566$'
+VAR DB 'ANKAR kumar sarrrrrrh@20 2 5566$'
 vowelS DB 'AEIOUaeiou$'
-    
+     ;both '0' and 0 accepted 
     vc DB '0'
-    cc DB '0'
+    cc Dw '0'
     SPAC DB '0'
     DIG DB '0'
 
@@ -45,15 +45,13 @@ MAIN PROC
            INC SI
            LOOP TOP
            INC CC  ;constant inc  
-           INC DI
-           JMP ITERATE
+           jmp others
            
            
            
         VOWEL:
-        INC vc 
-        INC DI ; vowel count 
-        JMP ITERATE
+        INC vc ;vowel count
+        jmp others
         
         
         NOTALPHABET:
@@ -64,14 +62,12 @@ MAIN PROC
           CMP VAR[DI],'9'
           JG OTHERS
           INC DIG 
-          INC DI
-          JMP ITERATE
+          jmp others
           
           
         SPACE:
           INC SPAC 
-          INC DI
-          JMP ITERATE  
+          jmp others 
                 
         CHECK:
           CMP VAR[DI],'a'
@@ -83,7 +79,20 @@ MAIN PROC
         
     
     PRINT:
-      MOV DL,vc
+      sub cc,48 
+      mov bl,10
+      
+      mov ax,cc
+      div bl 
+      add ah,48
+      add al,48
+      
+      mov bl,ah
+      MOV dl,al
+      MOV AH,02H
+      INT 21H 
+     
+      MOV dx,cc
       MOV AH,02H
       INT 21H      
     

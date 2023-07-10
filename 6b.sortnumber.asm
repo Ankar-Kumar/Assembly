@@ -1,10 +1,10 @@
-; String sorting using bubble sort
+
 
 .MODEL SMALL
 .STACK 100H
 
 .DATA
-    str DB 100 DUP ?
+    str DB 100 DUP (?)
     inmsg DB "Enter the stirng of Number: $"
     outmsg DB "After sorting: $"
     n DW ?
@@ -29,7 +29,11 @@ INPUT: ; input taking
     CMP AL, 0DH
     JZ ENDINPUT
     
+    CMP AL,' '
+    JE INPUT
+    
     MOV str[SI], AL
+   
     INC SI
     
     JMP INPUT
@@ -37,56 +41,59 @@ INPUT: ; input taking
 ENDINPUT:
     CALL NEWLINE ; new line feed
     
-    MOV n, SI
+    MOV n, SI 
     
-    CMP SI, 01H
-    JE OUTPUT
+     MOV CX, N
+     ; IF ARRAY LENGTH 1
+     CMP N,1
+     JE SINGLE
+     ; IF ARRAY LENGTH 0
+     JCXZ EXIT 
+     
+     
+     DEC CX ;AMI LENGTH-1 BAR BAIRER OUTLOOP CHALABO
     
-    MOV CX, n
-    DEC CX
-    MOV SI, 0H
-    
-    OUTLOOP:    ; outer loop
-        MOV DI, SI
+    OUTLOOP:
+        MOV SI,0;
+        MOV DI,0; 
         INC DI
-        
-        INLOOP: ; inside loop
-            MOV AL, str[SI]
-            CMP AL, str[DI]
+;FOR(I=1;I<N;I++){}INLOOP E ETA IMPLEMENT KORA
+        INLOOP:
+            MOV BL,STR[SI]  
+            MOV DL,STR[DI];
+            CMP BL,DL
             JL SKIP
-               
-            XCHG AL, str[DI]
-            MOV str[SI], AL
-            
+            XCHG BL,DL
+            MOV STR[SI],BL
+            MOV STR[DI],DL
             SKIP:
-                CMP DI, n
-                JZ ENDINLOOP   
-               
-            INC DI
-            
-            JMP INLOOP
-            
-        ENDINLOOP:
-            INC SI
-            
-    LOOP OUTLOOP:
-    
-    OUTPUT: ; showing output
-    LEA DX, outmsg
+             INC SI
+             INC DI 
+             CMP DI,N  ;LENGTH INDEX A GELE INLOOP BREAK HBE;
+             JL INLOOP;;; I<N
+      LOOP OUTLOOP 
+      
+      
+    SINGLE:      
+    LEA DX, OUTMSG
     MOV AH, 09H
     INT 21H
-    
-    MOV SI, 0H
-    MOV CX, n
-    
-    SHOW: ; loop for output showing
-        MOV DL, str[SI]
-        MOV AH, 02H
-        INT 21H
         
-        INC SI
-    LOOP SHOW
+    ;JUST FOR PRINT O INDEX THEKE CX PRJNTO PRINT KRBO
+    MOV DI, 0
+    MOV CX, N
+   
     
+    SHOW: ; loop for output showing 
+       ; JCXZ EXIT
+        MOV DL, str[DI]
+        MOV AH, 02H
+        INT 21H  
+        MOV DL,' '
+        INT 21H;        
+        INC DI
+    LOOP SHOW
+     EXIT:
     MOV AH, 4CH
     INT 21H
             

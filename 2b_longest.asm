@@ -1,10 +1,10 @@
 .MODEL SMALL
-.STACK 100H
+;.STACK 100H
 .DATA
    CNT Dw 20
    N DW 20
    IND DW   ?
-   MSG DB 'bbbbbbaaaaabbbbb$';'abcdabcdeafgkxyzbcdeabklm$'
+   MSG DB 50 dup('$');'bbbbbbaaaaabbbbb$';'abcdabcdeafgkxyzbcdeabklm$'
    str db 50
    T Dw ?
    mx dw ?
@@ -17,20 +17,23 @@ MAIN PROC
     MOV AX,@DATA
     MOV DS,AX
     
-     ; MOV SI,0 
-;      MOV AH,01H
-;      SCAN:
-;        CMP AL,0DH
-;        JE END_SCAN
-;        MOV MSG[SI],AL
-;        INT 21H
-;        INC SI
-;        JMP SCAN
-;      
-;      END_SCAN: 
-;        MOV MSG[SI],'$'
-;        call newline
-;        
+      MOV SI,0 
+      MOV AH,01H
+      SCAN: 
+        INT 21H
+        CMP AL,0DH
+        JE END_SCAN
+        MOV MSG[SI],AL
+        INC SI
+        JMP SCAN
+      
+      END_SCAN: 
+        CMP SI,0
+        JE EXIT;
+        MOV MSG[SI],'$'
+        call newline 
+        ;;;;print statement started
+        
         
         MOV SI,0        
         MOV MX,0
@@ -60,7 +63,7 @@ MAIN PROC
            JMP INLOOP
            SKIP:  
              MOV Dx,MX
-             CMP CNT,Dx
+             CMP CNT,Dx ;cnt,mx
              JG COUNT 
              ;MOV CNT,0 
              MOV SI,di
@@ -68,14 +71,14 @@ MAIN PROC
              JMP OUTLOOP
            COUNT: 
             MOV Dx,CNT
-            MOV mx,Dx
+            MOV mx,Dx ;mx=cnt
             
            
             MOV SI,IND  
-            mov t,si
+            mov t,si   ;t te index ta store krchi
             MOV SI,di
             JMP OUTLOOP
-    ;LOOP OUTLOOP
+    
     store2:
         mov si,t
         ;add si,'0' 

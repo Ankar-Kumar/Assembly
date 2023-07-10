@@ -4,7 +4,7 @@
 .STACK 100H
 
 .DATA                      
-str DB 100 DUP ?
+str DB 100 DUP("$")
 inmsg DB "Enter the string: $"
 outmsg DB "The case reversed string is: $"
 
@@ -19,7 +19,7 @@ MAIN PROC
     INT 21H
         
     MOV SI, 0H
-    MOV DI, 0H    
+     
         
     INPUT: 
         MOV AH, 01H
@@ -39,7 +39,7 @@ MAIN PROC
         LEA DX, outmsg  
         MOV AH, 09H
         INT 21H
-    
+        MOV DI, 0 
     OUTPUT:
         CMP DI, SI  
         JE EXIT

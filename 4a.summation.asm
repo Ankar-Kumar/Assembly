@@ -29,7 +29,7 @@ MAIN PROC
     
     
     MOV BL,02H
-    DIV BL    ;AL=AL/2
+    DIV BL    ;AL=AX/2
     ADD AL,'0'
     MOV N,AL    ;COPY AL INTO N
     

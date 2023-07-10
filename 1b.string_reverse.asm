@@ -24,8 +24,8 @@
         INT 21H
         CMP AL, 0DH 
         JZ ENDINPUT
-        MOV BX,AX
-        PUSH BX
+       
+        PUSH AX
         MOV str[SI], AL 
         INC SI
         
@@ -68,7 +68,7 @@
          INT 21H 
          CMP DI,0
          JE EXIT
-        LOOP OUTPUT2
+        JMP OUTPUT2
         
         EXIT:
         MOV AH, 4CH

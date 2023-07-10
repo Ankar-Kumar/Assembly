@@ -10,7 +10,7 @@
 .STACK 100H
 
 .DATA
-    str DB 100 DUP ?
+    str DB 100 DUP ("$")
     inpmsg DB "Enter the string: $"
     outmsg DB "After Sorting: $"
     
@@ -41,54 +41,55 @@ MAIN PROC
      ENDINPUT:
        
         ;sorting segment increasing order (Using bubble sort)
-        MOV n,SI;
-        DEC N   ;;;;;;
+        MOV n,SI;       
+                
+        MOV CX,n 
+         
+        CMP N,1
+        JE SINGLE        
+        JCXZ EXIT
         
-        MOV CX,n
-        OUTTOP:
+        DEC CX
+        OUTLOOP:
             MOV SI,0
             MOV DI,1           
-            TOP:
-                MOV AL,str[SI]    
-                CMP AL,str[DI]
+            INLOOP:
+                MOV AL,str[SI] 
+                MOV BL,str[DI]  
+                 
+                CMP AL,BL
                 JL SKIP ; JG to decreasing order sort
                 
-                XCHG AL,str[DI]
+                XCHG AL,BL
                 MOV str[SI],AL
+                MOV str[DI],BL;
                 
-                SKIP:
-                
-                CMP DI,n
-                JZ ENDTOP
-           
+                SKIP:                           
                 INC DI
-                INC SI
-                JMP TOP
-            ENDTOP:        
-        LOOP OUTTOP  
+                INC SI 
+                CMP DI,N
+                JL  INLOOP
+                    
+        LOOP OUTLOOP  
           
-     
+     SINGLE:
      ;Printing segment
      CALL NEWLINE
      LEA DX,outmsg 
      MOV AH,09H
      INT 21H   
      
-     INC n
+     MOV CX,N;
      MOV DI,0
      
-     OUTPUT:
-        
-        CMP DI,n
-        JZ ENDOUTPUT
-        
+     OUTPUT:        
         MOV DL,str[DI]
         MOV AH,2
         INT 21H
         INC DI   
         
-        JMP OUTPUT
-     ENDOUTPUT:     
+    LOOP  OUTPUT
+     EXIT:     
     
     MOV AH,4CH
     INT 21H    

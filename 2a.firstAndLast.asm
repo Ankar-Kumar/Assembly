@@ -50,6 +50,7 @@ INPUT: ; input taking
     SMALL: 
         INC CNT
         MOV MIN,AL
+        
     CHECK:
         CMP AL,MAX
         JG HIGH 
